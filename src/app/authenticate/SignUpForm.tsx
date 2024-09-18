@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { useForm } from 'react-hook-form'
+import { signUp } from './auth.action'
 
 
 export const signUpSchema = z.object ({
@@ -45,7 +46,8 @@ const SignUpForm = () => {
   })
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof signUpSchema>) {
+async function onSubmit(values: z.infer<typeof signUpSchema>) {
+    await signUp(values)
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values)
