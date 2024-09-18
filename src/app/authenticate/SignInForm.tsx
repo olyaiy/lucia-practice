@@ -35,6 +35,7 @@ const SignInForm = () => {
       email: "",
       password: "",
     },
+    
   })
 
   // 2. Define a submit handler.
@@ -63,11 +64,34 @@ const SignInForm = () => {
                         <FormItem>
                             <FormLabel>Email</FormLabel>
                             <FormControl>
-                                <Input placeholder='enter your email..' {...field}/>
+                                <Input type='email' placeholder='enter your email' {...field}/>
                             </FormControl>
+                            <FormMessage/>
                         </FormItem>
                     )}
                     ></FormField>
+                     <FormField
+                    control={form.control}
+                    name='password'
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Password</FormLabel>
+                            <FormControl>
+                                <Input type='password' placeholder='enter your password' {...field}
+                                onChange={(e) => {
+                                    e.target.value = e.target.value.trim()
+                                    field.onChange(e);
+                                }}
+                                />
+                            </FormControl>
+                            <FormMessage/>
+                        </FormItem>
+                    )}
+                    ></FormField>
+                    <Button type='submit' className='self-start'>
+                        Login
+
+                    </Button>
                 </form>
 
             </Form>
