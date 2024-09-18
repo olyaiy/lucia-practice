@@ -5,6 +5,8 @@ import { z } from "zod"
 import { signUpSchema } from "./SignUpForm"
 import { prisma } from "@/lib/prisma"
 import { Argon2id } from 'oslo/password'
+import { lucia } from "@/lib/lucia"
+import { cookies } from "next/headers"
 
 
 
@@ -34,8 +36,13 @@ export const signUp = async (values: z.infer<typeof signUpSchema>) => {
                 hashedPassword
             }
         })
+
+        const session = await lucia.createSession(user.id, {})
+        const sessionCookie = await lucia.createSessionCookie(session.id)
+        cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
+        return { success: true}
     } catch (error) {
-        
+        return {error: 'Something went wrong', success: false}
     }
 
 }
