@@ -55,7 +55,7 @@ const SignUpForm = () => {
     
 
   return (
-    <Card>
+    <Card className='min-w-[500px]'>
         <CardHeader>
             <CardTitle>Welcome Back!</CardTitle>
             <CardDescription>Sign Up for an account</CardDescription>
@@ -63,6 +63,25 @@ const SignUpForm = () => {
         <CardContent className='space-y-2'>
             <Form {...form} >
                 <form className='flex flex-col gap-2' onSubmit={form.handleSubmit(onSubmit)}>
+                    
+                    {/* Name */}
+                    <FormField
+                    control={form.control}
+                    name='name'
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Name</FormLabel>
+                            <FormControl>
+                                <Input placeholder='enter your name' {...field}/>
+                            </FormControl>
+                            <FormMessage/>
+                        </FormItem>
+                    )}
+                    >
+
+                    </FormField>
+
+                    {/* Email */}
                     <FormField
                     control={form.control}
                     name='email'
@@ -75,8 +94,12 @@ const SignUpForm = () => {
                             <FormMessage/>
                         </FormItem>
                     )}
-                    ></FormField>
-                     <FormField
+                    >
+
+                    </FormField>
+
+                    {/* Password */}
+                    <FormField
                     control={form.control}
                     name='password'
                     render={({ field }) => (
@@ -93,7 +116,31 @@ const SignUpForm = () => {
                             <FormMessage/>
                         </FormItem>
                     )}
-                    ></FormField>
+                    >
+
+                    </FormField>
+
+                    {/* Confirm Password */}
+                    <FormField
+                    control={form.control}
+                    name='confirmPassword'
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Confirm Password</FormLabel>
+                            <FormControl>
+                                <Input type='password' placeholder='Please confirm your password' {...field}
+                                onChange={(e) => {
+                                    e.target.value = e.target.value.trim()
+                                    field.onChange(e);
+                                }}
+                                />
+                            </FormControl>
+                            <FormMessage/>
+                        </FormItem>
+                    )}
+                    >
+                      
+                    </FormField>
                     <Button type='submit' className='self-start'>
                         Sign Up
 
